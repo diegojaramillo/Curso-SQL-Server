@@ -7,10 +7,10 @@
   sobrescribir objetos de bases de datos
 
 REQUERIMIENTOS
-Previamente debe ejecutar el laboratorio anterior en el cual se creo la BD Norte.
+Previamente debe ejecutar el laboratorio anterior en el cual se creo la BD Norte_2015.
 
-1. Verifique que se encuentra posicionado en la BD Norte.
-   Seleccione Nore de la lista desplegable de BD: "Available Databases"
+1. Verifique que se encuentra posicionado en la BD Norte_2015.
+   Seleccione Norte_2015 de la lista desplegable de BD: "Available Databases"
 2. Presione el botón ejecutar para crear los objetos de BD
 3. Cierre el script 
 
@@ -31,7 +31,7 @@ Previamente debe ejecutar el laboratorio anterior en el cual se creo la BD Norte
 5. Documente el código usando comentarios.
 
 
-USE [Norte]
+USE [Norte_2015]
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Regiones]') AND type in (N'U'))

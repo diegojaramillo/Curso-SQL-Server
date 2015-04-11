@@ -18,32 +18,32 @@ Si lo requiere cambie la ruta usando el menú:
 -----------------------------------------------------------------------
 USE [master]
 GO
---IF  EXISTS (SELECT name FROM sys.databases WHERE name = N'Norte')
--- DROP DATABASE [Norte]
+--IF  EXISTS (SELECT name FROM sys.databases WHERE name = N'Norte_2015')
+-- DROP DATABASE [Norte_2015]
 --GO
 
 -- No Olvide validar la ruta de creación
  
-CREATE DATABASE Norte 
+CREATE DATABASE Norte_2015 
  ON
  PRIMARY 
- (NAME = N'Norte_Data',
+ (NAME = N'Norte_2015_Data',
   -- Por favor buscar una ruta válida
-  FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Norte_Data.mdf', 
+  FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Norte_2015_Data.mdf', 
   SIZE = 5MB, 
   MAXSIZE = UNLIMITED, 
   FILEGROWTH = 10%)
  LOG ON 
- (NAME = N'Norte_Log', 
+ (NAME = N'Norte_2015_Log', 
   -- Por favor buscar una ruta válida
-  FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Norte_Log.ldf' , 
+  FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\Norte_2015_Log.ldf' , 
   SIZE = 1024KB , 
   MAXSIZE = 200MB, 
   FILEGROWTH = 1MB)
 GO
 
-EXEC [Norte].sys.sp_addextendedproperty @name=N'Curso_SQL', 
- @value=N'Norte base de datos para el curso de SQL' 
+EXEC [Norte_2015].sys.sp_addextendedproperty @name=N'Curso_SQL', 
+ @value=N'Norte_2015 base de datos para el curso de SQL' 
 GO
 
 -----------------------------------------------------------------------
@@ -91,8 +91,8 @@ PREGUNTAS PARA EL ALUMNO:
 -----------------------------------------------------------------------
 USE master
 GO
-ALTER DATABASE Norte
- ADD FILEGROUP NorteFG1;
+ALTER DATABASE Norte_2015
+ ADD FILEGROUP Norte_2015FG1;
 GO
 -- Ruta de la carpeta Data de SQL Server
 DECLARE @sRuta nvarchar(256);
@@ -104,36 +104,36 @@ PRINT @sRuta
 SET @sRuta = 'C:\Curso_SQL\'
 
 EXECUTE (
-'ALTER DATABASE Norte 
+'ALTER DATABASE Norte_2015 
 ADD FILE 
 (
-    NAME = Norte_Data1,
-    FILENAME = '''+ @sRuta + 'Norte_Data1.ndf'',
+    NAME = Norte_2015_Data1,
+    FILENAME = '''+ @sRuta + 'Norte_2015_Data1.ndf'',
     SIZE = 1MB,
     MAXSIZE = UNLIMITED,
     FILEGROWTH = 10%
 ),
 (
-    NAME = Norte_Data2,
-    FILENAME = '''+ @sRuta + 'Norte_Data2.ndf'',
+    NAME = Norte_2015_Data2,
+    FILENAME = '''+ @sRuta + 'Norte_2015_Data2.ndf'',
     SIZE = 1MB,
     MAXSIZE = UNLIMITED,
     FILEGROWTH = 10%
 )
-TO FILEGROUP NorteFG1'
+TO FILEGROUP Norte_2015FG1'
 );
 GO
 
 -----------------------------------------------------------------------
 -- 4. Cambiar el filegroup por defecto de una BD
 -----------------------------------------------------------------------
-4.1 Cambiar filegroup por defecto a NorteFG1
-ALTER DATABASE Norte
- MODIFY FILEGROUP NorteFG1 DEFAULT
+4.1 Cambiar filegroup por defecto a Norte_2015FG1
+ALTER DATABASE Norte_2015
+ MODIFY FILEGROUP Norte_2015FG1 DEFAULT
 GO
 
 4.2 Retornar el filegroup por defecto a PRIMARY (Observe los corchetes [ ])
-ALTER DATABASE Norte
+ALTER DATABASE Norte_2015
  MODIFY FILEGROUP [PRIMARY] DEFAULT
 GO
 
@@ -142,26 +142,26 @@ GO
 -----------------------------------------------------------------------
 USE master;
 GO
-ALTER DATABASE Norte
- REMOVE FILE Norte_Data2;
+ALTER DATABASE Norte_2015
+ REMOVE FILE Norte_2015_Data2;
 GO
 
 -----------------------------------------------------------------------
 -- 6. Cambiar el modo de recuperación
 -----------------------------------------------------------------------
 5.1 Guardar todas las transacciones en el log
-ALTER DATABASE Norte
+ALTER DATABASE Norte_2015
  SET RECOVERY FULL
 GO
 
 5.2 Guarda transacciones en el log, apropiado en forma temporal cuando 
     realiza procesos de carga masiva de datos
-ALTER DATABASE Norte
+ALTER DATABASE Norte_2015
  SET RECOVERY BULK_LOGGED
 GO
 
 5.3 No generar registro de transacciones
-ALTER DATABASE Norte
+ALTER DATABASE Norte_2015
  SET RECOVERY SIMPLE
 GO
 
@@ -170,6 +170,6 @@ GO
 -----------------------------------------------------------------------
 7.1 Abra la ventana: "Object explorer"
 7.2 Expanda la carpeta Databases
-7.3 De un clic secundario en la BD Norte y seleccione: "Properties"
+7.3 De un clic secundario en la BD Norte_2015 y seleccione: "Properties"
 7.4 Navegue por las diferentes opciones
 
