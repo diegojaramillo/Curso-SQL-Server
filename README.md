@@ -1,1 +1,0 @@
-# Curso-SQL-Server
